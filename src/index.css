@@ -37,10 +37,4 @@ body {
     color: var(--body-text-color);
 }
 
-.card {
-    background: var(--card-bg);
-    border: var(--card-border);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-}
+

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@primevue/core": "^4.0.0",
     "@primevue/themes": "^4.0.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.0",
@@ -20,6 +21,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
+    "sass": "^1.77.6",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
   },

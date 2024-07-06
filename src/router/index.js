@@ -8,8 +8,16 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HelloWorld
+            component: HelloWorld,
+            children:[
+                {
+                    path: "/cameras-management",
+                    name: "cameras-management",
+                    component: ()=>import('../unit-management/views/CameraManagementView.vue'),
+                },
+            ]
         },
+
 
     ]
 })

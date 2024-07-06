@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router'
 import 'primeicons/primeicons.css' // add prime icons
 import './index.css'; // styles of Tailwind CSS
-
+import './assets/styles.scss';
 // add component
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -128,6 +128,7 @@ import VirtualScroller from 'primevue/virtualscroller';
 
 // add theme
 import themePreset from "../presets/MyPreset.js";
+
  // change themes -- color
 
 
@@ -135,10 +136,10 @@ const app = createApp(App)
 app.use(PrimeVue, {
     // Default theme configuration
     theme: {
-        preset: themePreset.getPreset('Aura','Noir'),
+        preset: themePreset.getPreset('Aura','Blue'),
         options: {
-            prefix: 'my',
-            darkModeSelector:'.my-app-dark',
+            prefix: 'p',
+            darkModeSelector:'.p-dark',
             cssLayer: false
         }
     }
