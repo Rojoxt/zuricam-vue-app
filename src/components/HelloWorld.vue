@@ -1,52 +1,74 @@
 <script setup>
-import {ref, onMounted, onBeforeUnmount, watchEffect} from 'vue';
-import AppTopbar from "./shared/AppTopbar.vue";
+import { computed, watch, ref } from 'vue';
+import AppTopbar from './shared/AppTopbar.vue';
+
+import { useLayout } from './shared/composables/layout.js';
 import AppMenu from "./shared/AppMenu.vue";
 
-const isSidebarVisible = ref(true);
+const { layoutConfig, layoutState, isSidebarActive } = useLayout();
 
-const toggleSidebar = () => {
-  isSidebarVisible.value = !isSidebarVisible.value;
+const outsideClickListener = ref(null);
 
-
-};
-watchEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth < 991) {
-      isSidebarVisible.value = false
-    } else
-      isSidebarVisible.value = true
-  };
-  // Llamar a handleResize inicialmente y cada vez que se redimensiona la ventana
-  handleResize();
-  window.addEventListener('resize', handleResize);
-
-  // Limpiar el listener cuando el componente se desmonta
-  return () => {
-    window.removeEventListener('resize', handleResize);
-  };
+watch(isSidebarActive, (newVal) => {
+  if (newVal) {
+    bindOutsideClickListener();
+  } else {
+    unbindOutsideClickListener();
+  }
 });
 
+const containerClass = computed(() => {
+  return {
 
+    'layout-overlay': layoutConfig.menuMode.value === 'overlay',
+    'layout-static': layoutConfig.menuMode.value === 'static',
+    'layout-static-inactive': layoutState.staticMenuDesktopInactive.value && layoutConfig.menuMode.value === 'static',
+    'layout-overlay-active': layoutState.overlayMenuActive.value,
+    'layout-mobile-active': layoutState.staticMenuMobileActive.value,
+    'p-ripple-disabled': layoutConfig.ripple.value === false
+  };
+});
+const bindOutsideClickListener = () => {
+  if (!outsideClickListener.value) {
+    outsideClickListener.value = (event) => {
+      if (isOutsideClicked(event)) {
+        layoutState.overlayMenuActive.value = false;
+        layoutState.staticMenuMobileActive.value = false;
+        layoutState.menuHoverActive.value = false;
+      }
+    };
+    document.addEventListener('click', outsideClickListener.value);
+  }
+};
+const unbindOutsideClickListener = () => {
+  if (outsideClickListener.value) {
+    document.removeEventListener('click', outsideClickListener);
+    outsideClickListener.value = null;
+  }
+};
+const isOutsideClicked = (event) => {
+  const sidebarEl = document.querySelector('.layout-sidebar');
+  const topbarEl = document.querySelector('.layout-menu-button');
+
+  return !(sidebarEl.isSameNode(event.target) || sidebarEl.contains(event.target) || topbarEl.isSameNode(event.target) || topbarEl.contains(event.target));
+};
 </script>
 
 <template>
-
-  <div class="h-screen  bg-pink-500 flex flex-col">
-    <div style="height:60px" class="bg-red-500 p-1">
-      <AppTopbar @toggle-sidebar="toggleSidebar"/>
+  <div class="layout-wrapper" :class="containerClass">
+    <AppTopbar></AppTopbar>
+    <div class="layout-sidebar">
+      <AppMenu></AppMenu>
+    </div>
+    <div class="layout-main-container">
+      <div class="layout-main">
+        <router-view></router-view>
+      </div>
     </div>
 
-    <div class=" flex bg-blue-500 flex-grow " style="height: calc(100vh - 60px)">
-      <AppMenu v-show="isSidebarVisible "/>
-      <div class="flex h-full w-full bg-green-500">{{ isSidebarVisible }}</div>
-    </div>
+    <div class="layout-mask"></div>
   </div>
-
-
-
-
+  <Toast />
 </template>
 
-<style scoped>
-</style>
+<style lang="scss" scoped></style>

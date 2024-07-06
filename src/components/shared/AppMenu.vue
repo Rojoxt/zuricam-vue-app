@@ -7,7 +7,7 @@ const items= ref([
   {
     label: 'UI Components',
     items: [
-      { label: 'Gestión de cámaras', icon: 'pi pi-fw pi-camera', to: '/uikit/formlayout' },
+      { label: 'Gestión de cámaras', icon: 'pi pi-fw pi-camera', to: {name:'cameras-management'} }, //'/cameras-management'
       { label: 'Gestión de usuarios', icon: 'pi pi-fw pi-users', to: '/uikit/input' },
       { label: 'Gestión de unidades', icon: 'pi pi-fw pi-car', to: '/uikit/floatlabel' },
       { label: 'Gestión de incidencias', icon: 'pi pi-fw pi-file', to: '/uikit/invalidstate' },
@@ -22,9 +22,17 @@ const items= ref([
 </script>
 
 <template>
-  <div class="p-5 h-full">
-    <Menu v-model:visible="visible" :model="items" class="h-full w-80 overflow-y-auto"/>
-  </div>
+     <Menu v-model:visible="visible" :model="items" class="h-full overflow-y-auto" >
+      <template #item="{item,props}">
+        <router-link  v-if="item.to.name" v-slot="{ href, navigate }" :to="item.to" custom>
+          <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+            <span :class="item.icon" />
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </router-link>
+      </template>
+    </Menu>
+
 
 </template>
 
