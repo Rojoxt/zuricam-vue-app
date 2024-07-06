@@ -15,6 +15,11 @@ const router = createRouter({
                     name: "cameras-management",
                     component: ()=>import('../unit-management/views/CameraManagementView.vue'),
                 },
+                {
+                    path: "/drivers-management",
+                    name: "drivers-management",
+                    component: ()=>import('../unit-management/views/DriverManagementView.vue'),
+                },
             ]
         },
 
