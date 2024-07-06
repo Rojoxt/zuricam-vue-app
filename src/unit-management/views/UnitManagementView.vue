@@ -17,8 +17,8 @@
 
     <DataTable
         ref="dt"
-        v-model:selection="selectedCameras"
-        :value="cameras"
+        v-model:selection="selectedUnits"
+        :value="units"
         dataKey="id"
         :paginator="true"
         :rows="5"
@@ -60,18 +60,16 @@ import {ref} from "vue";
 import { FilterMatchMode } from '@primevue/core/api';
 
 //const cameras = ref()
-const selectedCameras=ref()
+const selectedUnits=ref()
 const dt = ref(null);
 const filters=ref({
   'global':{value:null, matchMode:FilterMatchMode.CONTAINS}
 })
-const cameras = [
+const units = [
   {name: 'A001', direction: 'Product A', unit: 100, image: 'Product A'},
   {name: 'A002', direction: 'Product B', unit: 200, image: 'Product b'},
   {name: 'A003', direction: 'Product C', unit: 100, image: 'Product c'},
-  {name: 'A004', direction: 'Product D', unit: 200, image: 'Product d'},
-  {name: 'A005', direction: 'Product E', unit: 100, image: 'Product e'},
-  {name: 'A006', direction: 'Product F', unit: 200, image: 'Product f'},
+
 ];
 
 </script>

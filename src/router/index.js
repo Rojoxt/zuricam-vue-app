@@ -20,6 +20,11 @@ const router = createRouter({
                     name: "drivers-management",
                     component: ()=>import('../unit-management/views/DriverManagementView.vue'),
                 },
+                {
+                    path: "/units-management",
+                    name: "units-management",
+                    component: ()=>import('../unit-management/views/UnitManagementView.vue'),
+                },
             ]
         },
 

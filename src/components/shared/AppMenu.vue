@@ -10,7 +10,7 @@ const items= ref([
       { label: 'Gestión de cámaras', icon: 'pi pi-fw pi-camera', to: {name:'cameras-management'} }, //'/cameras-management'
       { label: 'Gestión de conductores', icon: 'pi pi-fw pi-users', to: {name:'drivers-management'} },
       { label: 'Gestión de usuarios', icon: 'pi pi-fw pi-users', to: '' },
-      { label: 'Gestión de unidades', icon: 'pi pi-fw pi-car', to: '/uikit/floatlabel' },
+      { label: 'Gestión de unidades', icon: 'pi pi-fw pi-car', to: {name:'units-management'} },
       { label: 'Gestión de incidencias', icon: 'pi pi-fw pi-file', to: '/uikit/invalidstate' },
       { label: 'Gestión', icon: 'pi pi-fw pi-mobile', to: '/uikit/button', class: 'rotated-icon' },
       { label: 'Gestión', icon: 'pi pi-fw pi-mobile', to: '/uikit/button', class: 'rotated-icon' },
